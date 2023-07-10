@@ -15,7 +15,6 @@ const ProductView = () => {
       const response = await fetch(`/products/get/${productId}`,{
       });
       const data = await response.json();
-
       setProduct(data);
 
     } catch (error) {

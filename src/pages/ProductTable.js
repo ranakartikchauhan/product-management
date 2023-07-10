@@ -3,6 +3,24 @@ import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert';
 
+const InputField = ({ label, type, id, name, value, onChange, required }) => {
+  return (
+    <div className="mb-3">
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+      <input
+        type={type}
+        className="form-control"
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+    </div>
+  );
+};
 
 const ProductTable = ({ products, fetchProductData }) => {
   const [id, setId] = useState("");
@@ -20,7 +38,6 @@ const ProductTable = ({ products, fetchProductData }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   const { name, price, stockQty, stockConsumed, mfgName, mfgAddress } = formData;
 
@@ -52,7 +69,7 @@ const ProductTable = ({ products, fetchProductData }) => {
 
     if (isCreating) {
       // Create mode logic
-      
+
       try {
         const response = await fetch('/products/create', {
           headers: {
@@ -61,8 +78,6 @@ const ProductTable = ({ products, fetchProductData }) => {
           method: 'POST',
           body: JSON.stringify(formData),
         });
-        const data = await response.json();
-        console.log(data);
         Swal("Success", "Product created successfully", "success");
         fetchProductData();
         handleClose();
@@ -72,7 +87,6 @@ const ProductTable = ({ products, fetchProductData }) => {
     } else {
       // Update mode logic
       formData.productId = id;
-      console.log(formData);
 
       try {
         const response = await fetch(`/products/update/${formData.productId}`, {
@@ -80,7 +94,6 @@ const ProductTable = ({ products, fetchProductData }) => {
           body: JSON.stringify(formData),
         });
         const data = await response.json();
-        console.log(data);
         Swal("Success", "Product updated successfully", "success");
         fetchProductData();
         handleClose();
@@ -96,7 +109,6 @@ const ProductTable = ({ products, fetchProductData }) => {
         method: 'DELETE',
       });
       const data = await response.json();
-      console.log(data);
       Swal("Success", "Product deleted successfully", "success");
       fetchProductData();
       handleClose();
@@ -105,10 +117,9 @@ const ProductTable = ({ products, fetchProductData }) => {
     }
   };
 
-
   return (
     <div>
-      <div className='row'>
+      <div className=''>
         <div className='col-4'>
           <button className='btn btn-success m-4' onClick={handleCreateMode}>
             Add Product
@@ -142,7 +153,6 @@ const ProductTable = ({ products, fetchProductData }) => {
                 <Link to={`/product/view/${product._id}`} className="btn btn-info btn-sm m-2">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </Link>
-
               </td>
             </tr>
           ))}
@@ -150,103 +160,68 @@ const ProductTable = ({ products, fetchProductData }) => {
       </table>
 
       <Modal show={show} onHide={handleClose}>
-
-
         <Modal.Body>
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                value={name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="price" className="form-label">
-                Price
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="price"
-                name="price"
-                value={price}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="stockQty" className="form-label">
-                Stock Quantity
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="stockQty"
-                name="stockQty"
-                value={stockQty}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="stockConsumed" className="form-label">
-                Stock Consumed
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="stockConsumed"
-                name="stockConsumed"
-                value={stockConsumed}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="mfgName" className="form-label">
-                Manufacturer Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="mfgName"
-                name="mfgName"
-                value={mfgName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="mfgAddress" className="form-label">
-                Manufacturer Address
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="mfgAddress"
-                name="mfgAddress"
-                value={mfgAddress}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <InputField
+              label="Name"
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Price"
+              type="number"
+              id="price"
+              name="price"
+              value={price}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Stock Quantity"
+              type="number"
+              id="stockQty"
+              name="stockQty"
+              value={stockQty}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Stock Consumed"
+              type="number"
+              id="stockConsumed"
+              name="stockConsumed"
+              value={stockConsumed}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Manufacturer Name"
+              type="text"
+              id="mfgName"
+              name="mfgName"
+              value={mfgName}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Manufacturer Address"
+              type="text"
+              id="mfgAddress"
+              name="mfgAddress"
+              value={mfgAddress}
+              onChange={handleChange}
+              required
+            />
             <button type="submit" className="btn btn-primary">
               {isCreating ? 'Create' : 'Update'}
             </button>
 
           </form>
         </Modal.Body>
-
-
-
       </Modal>
     </div>
   );

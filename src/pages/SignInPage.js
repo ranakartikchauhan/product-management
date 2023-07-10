@@ -1,35 +1,46 @@
-import React,{useState} from 'react';
-
+import React, { useState, } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert';
 const SignInPage = () => {
+  const navigate = useNavigate();
 
-    const [signInFormData, setFormData] = useState({
-        email: '',
-        password: '',
+
+  const [signInFormData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = signInFormData;
+
+  const signInFormChange = (e) => {
+    console.log(e.target.name);
+    setFormData({ ...signInFormData, [e.target.name]: e.target.value });
+  };
+
+  const signInFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(signInFormData);
+      const response = await fetch('auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signInFormData),
       });
-    const { email,password } = signInFormData;
+      const data = await response.json();
+      if (response.status == 200) {
+        sessionStorage.setItem('isLoggedIn', 'true');
+        navigate('/product');
+      }
+      else {
+        Swal("Error", data.message, "error");
+      }
 
-    const signInFormChange = (e) => {
-        console.log(e.target.name);
-        setFormData({ ...signInFormData, [e.target.name]: e.target.value });
-      };
-
-    const signInFormSubmit = async (e)=>{
-        e.preventDefault();
-        try {
-            console.log(signInFormData);
-            const response = await fetch('auth/login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(signInFormData),
-            });
-            const data = await response.json();
-            console.log(data);
-          } catch (error) {
-            console.error('Error creating product:', error);
-          }
+    } catch (error) {
+      Swal("Error", error, "error");
+      console.error('Error creating product:', error);
     }
+  }
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -50,12 +61,13 @@ const SignInPage = () => {
                   <label htmlFor="password" className="form-label">
                     Password
                   </label>
-                  <input type="password" className="form-control" id="password" placeholder="Enter password" name='password' value={password} onChange={signInFormChange}/>
+                  <input type="password" className="form-control" id="password" placeholder="Enter password" name='password' value={password} onChange={signInFormChange} />
                 </div>
                 <div className="d-grid">
                   <button type="submit" className="btn btn-primary">Sign In</button>
                 </div>
               </form>
+            <p className='my-3'>Not registered click <Link to='/register'>here</Link></p>
             </div>
           </div>
         </div>

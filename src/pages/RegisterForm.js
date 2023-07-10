@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert';
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [registrationFormData, setRegistrationFormData] = useState({
     username: '',
     email: '',
-    name: '',
     password: '',
     confirmPassword: '',
     gender: '',
   });
 
-  const { username, email, name, password, confirmPassword, gender } = registrationFormData;
+  const { username, email, password, confirmPassword, gender } = registrationFormData;
 
   const handleRegistrationFormChange = (e) => {
     setRegistrationFormData({ ...registrationFormData, [e.target.name]: e.target.value });
@@ -20,7 +21,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     try {
       console.log(registrationFormData);
-      const response = await fetch('http://localhost:7000/auth/register', {
+      const response = await fetch('/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,21 @@ const RegistrationForm = () => {
         body: JSON.stringify(registrationFormData),
       });
       const data = await response.json();
-      console.log(data);
+      if (response.status == 200) {
+        navigate('/sign-in');
+      }
+      else if (response.status == 400) {
+        console.log(response)
+        Swal("Error", data.errors[0].msg, "error");
+      }
+      else if(response.status ==401){
+        Swal("Error", data.message, "error");
+      }
+
+      else {
+
+        Swal("Error", data.message, "error");
+      }
     } catch (error) {
       console.error('Error registering user:', error);
     }
@@ -69,20 +84,6 @@ const RegistrationForm = () => {
                     id="email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={handleRegistrationFormChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    id="name"
-                    placeholder="Enter name"
-                    value={name}
                     onChange={handleRegistrationFormChange}
                   />
                 </div>
