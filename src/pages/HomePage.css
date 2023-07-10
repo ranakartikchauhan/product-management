@@ -1,0 +1,141 @@
+/* HomePage.css */
+
+.logo-image {
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .image-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+  }
+  
+  .image-section h1 {
+    font-size: 40px;
+  }
+  
+  .image-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  
+  /* HomePage.css */
+
+/* Navigation Bar */
+.navbar {
+    background-color: #343a40;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    color: #fff;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background-color: #f8f9fa;
+    padding: 100px 0;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-description {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  
+  /* Features Section */
+  .features-section {
+    padding: 80px 0;
+  }
+  
+  .feature-item {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .feature-item i {
+    font-size: 48px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .feature-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-description {
+    font-size: 18px;
+    color: #6c757d;
+  }
+  
+  /* Testimonials Section */
+  .testimonials-section {
+    background-color: #f8f9fa;
+    padding: 100px 0;
+  }
+  
+  .section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .testimonial {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .testimonial i {
+    font-size: 36px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial-text {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial-author {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #343a40;
+    padding: 20px 0;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  .footer p {
+    margin-bottom: 0;
+  }
+  
+  .footer-links li {
+    display: inline;
+    margin-right: 10px;
+  }
+  
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
